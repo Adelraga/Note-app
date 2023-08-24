@@ -19,6 +19,7 @@ class NotesViewBody extends StatelessWidget {
         // TODO: Add notes list here!
         Expanded(
           child: NotesListView(),
+          
         )
       ]),
     );
