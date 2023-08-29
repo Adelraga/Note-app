@@ -5,9 +5,11 @@ import 'package:noteapp/views/notes_view.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'bloc_observe.dart';
 import 'constants.dart';
 
 void main() async {
+  Bloc.observer=SimpleBlocObserver();
   await Hive.initFlutter();
   await Hive.openBox(KNotesBox);
   Hive.registerAdapter(NoteModelAdapter());
