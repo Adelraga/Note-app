@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:noteapp/add_note_cubit/cubit/add_note_cubit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:noteapp/add_note_cubit/cubit/notes_cubit.dart';
 import 'package:noteapp/model/note_model.dart';
 import 'package:intl/intl.dart';
 
@@ -20,6 +21,7 @@ class AddNoteBottomSheet extends StatelessWidget {
           print('failed ${state.errMessage}');
         }
         if (state is AddNoteSuccess) {
+          BlocProvider.of<NotesCubit>(context).fetchAllNotes();
           Navigator.pop(context);
         }
       },
@@ -77,6 +79,13 @@ class _AddNoteFormState extends State<AddNoteForm> {
           SizedBox(
             height: 20,
           ),
+
+
+            ColorsListView(),
+              SizedBox(
+            height: 20,
+          ),
+
           BlocBuilder<AddNoteCubit, AddNoteState>(
             builder: (context, state) {
               return CustomButton(
@@ -92,6 +101,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
                         data:FORMATEDdate ,
                         color: Colors.blue.value);
                     BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
+                    
                   } else {
                     autovalidateMode = AutovalidateMode.always;
                     setState(() {});
@@ -105,6 +115,37 @@ class _AddNoteFormState extends State<AddNoteForm> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class ColorItem extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return CircleAvatar(
+      radius: 30,
+      backgroundColor: Colors.blue,
+    );
+  }
+}
+
+class ColorsListView extends StatelessWidget {
+  const ColorsListView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 60,
+      child: ListView.builder(
+        itemCount: 5,
+        scrollDirection: Axis.horizontal,
+        itemBuilder:(context,index){
+        return Padding(
+          padding: const EdgeInsets.all(5),
+          child: ColorItem(),
+        );
+      }),
     );
   }
 }

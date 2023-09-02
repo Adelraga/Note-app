@@ -5,6 +5,7 @@ import 'package:noteapp/views/notes_view.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'add_note_cubit/cubit/notes_cubit.dart';
 import 'bloc_observe.dart';
 import 'constants.dart';
 
@@ -25,6 +26,9 @@ class NoteApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => AddNoteCubit(),
+        ),
+        BlocProvider(
+          create: (context) => NotesCubit(),
         ),
        
       ],
